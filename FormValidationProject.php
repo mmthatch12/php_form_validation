@@ -4,7 +4,7 @@ $EmailError="";
 $GenderError="";
 $WebsiteError="";
 // /^[A-Za-z. ]*$/
-// /[a-zA-z0-9._]{3,}@[a-zA-z0-9._]{3,}[.]{1}[a-zA-z0-9._]{2,}/
+// /[a-zA-Z0-9._-]{3,}@[a-zA-Z0-9._-]{3,}[.]{1}[a-zA-Z0-9._-]{2,}/
 // /(https:|ftp:)\/\/+[a-zA-Z0-9.\-_\/?\$=&\#\~`!]+\.[a-zA-Z0-9.\-_\/?\$=&\#\~`!]*/
 
 //When submitted check if name is there if not set name error to show "name is required"
@@ -21,7 +21,7 @@ if(isset($_POST["Submit"])){
         $EmailError="Email is Required";
     } else{
         $Email=Test_User_Input($_POST["Email"]);
-        if(!preg_match("/[a-zA-z0-9._]{3,}@[a-zA-z0-9._]{3,}[.]{1}[a-zA-z0-9._]{2,}/", $Email)){
+        if(!preg_match("/[a-zA-Z0-9._-]{3,}@[a-zA-Z0-9._-]{3,}[.]{1}[a-zA-Z0-9._-]{2,}/", $Email)){
             $EmailError="Invalid email Format";
         }
     } 
@@ -34,10 +34,23 @@ if(isset($_POST["Submit"])){
         $WebsiteError="Website is Required";
     } else{
         $Website=Test_User_Input($_POST["Website"]);
-        if(!preg_match("/(https:|ftp:)\/\/+[a-zA-Z0-9.\-_\/?\$=&\#\~`!]+\.[a-zA-Z0-9.\-_\/?\$=&\#\~`!]*/", $Website)){
+        if(!preg_match("/(https:|ftp:)\/\/+[a-zA-Z0-9.\-_\/?\$=&\#\~`!]+\.[a-zA-Z0-9.\-_\/?\$=&\#\~`!]*/",$Website)){
             $WebsiteError="Invalid Website Address";
         }
-    } 
+    }
+        if(!empty($_POST["Name"])&&!empty($_POST["Email"])&&!empty($_POST["Gender"])&&!empty($_POST["Website"])){
+            if((preg_match("/^[A-Za-z. ]*$/", $Name)==true)&&(preg_match("/[a-zA-Z0-9._-]{3,}@[a-zA-Z0-9._-]{3,}[.]{1}[a-zA-Z0-9._-]{2,}/", $Email)==true)&&(preg_match("/(https:|ftp:)\/\/+[a-zA-Z0-9.\-_\/?\$=&\#\~`!]+\.[a-zA-Z0-9.\-_\/?\$=&\#\~`!]*/", $Website)==true)){
+                echo "<h2>Submited Information</h2> <br>";
+                echo "Name:".ucwords ($_POST["Name"])."<br>";
+                echo "Email: {$_POST["Email"]}<br>";
+                echo "Gender: {$_POST["Gender"]}<br>";
+                echo "Website: {$_POST["Website"]}<br>";
+                echo "Comment: {$_POST["Comment"]}<br>";
+            } else{
+                echo "Please Complete and correct your form again";
+            }
+        
+        }
 }
 function Test_User_Input($Data){
     return $Data;
