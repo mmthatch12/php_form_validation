@@ -1,13 +1,25 @@
 <?php
 $NameError=""; //on load nameerror will be empty
+$EmailError="";
+$GenderError="";
 
 //When submitted check if name is there if not set name error to show "name is required"
 if(isset($_POST["Submit"])){
     if(empty($_POST["Name"])){
         $NameError="Name is Required";
-    }
-} else{
-    $Name=Test_User_Input($_POST["Name"]);
+    } else{
+        $Name=Test_User_Input($_POST["Name"]);
+    } 
+    if(empty($_POST["Email"])){
+        $EmailError="Email is Required";
+    } else{
+        $Email=Test_User_Input($_POST["Email"]);
+    } 
+    if(empty($_POST["Gender"])){
+        $GenderError="Gender is Required";
+    } else{
+        $Gender=Test_User_Input($_POST["Gender"]);
+    } 
 }
 function Test_User_Input($Data){
     return $Data;
@@ -43,17 +55,17 @@ input[type="text"],input[type="email"],textarea{
 <fieldset>
 Name:<br>
 <input class="input" type="text" Name="Name" value="">
-<span class="Error">*<?php echo $NameError;  ?></span><br>   
+*<?php echo $NameError;  ?><br>   
 E-mail:<br>
 <input class="input" type="text" Name="Email" value="">
-<span class="Error">*<?php echo $EmailError; ?></span><br>
+*<?php echo $EmailError; ?><br>
 Gender:<br>
 <input class="radio" type="radio" Name="Gender" value="Female">Female
 <input class="radio" type="radio" Name="Gender" value="Male">Male
-<span class="Error">*<?php echo $GenderError; ?></span><br>        
+*<?php echo $GenderError; ?><br>        
 Website:<br>
 <input class="input" type="text" Name="Website" value="">
-<span class="Error">*<?php echo $WebsiteError; ?></span><br>
+<span class="Error"></span><br>
 Comment:<br>
 <textarea Name="Comment" rows="5" cols="25"></textarea>
 <br>
