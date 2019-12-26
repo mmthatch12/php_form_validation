@@ -2,6 +2,7 @@
 $NameError=""; //on load nameerror will be empty
 $EmailError="";
 $GenderError="";
+$WebsiteError="";
 
 //When submitted check if name is there if not set name error to show "name is required"
 if(isset($_POST["Submit"])){
@@ -19,6 +20,11 @@ if(isset($_POST["Submit"])){
         $GenderError="Gender is Required";
     } else{
         $Gender=Test_User_Input($_POST["Gender"]);
+    } 
+    if(empty($_POST["Website"])){
+        $WebsiteError="Website is Required";
+    } else{
+        $Website=Test_User_Input($_POST["Website"]);
     } 
 }
 function Test_User_Input($Data){
@@ -65,7 +71,7 @@ Gender:<br>
 *<?php echo $GenderError; ?><br>        
 Website:<br>
 <input class="input" type="text" Name="Website" value="">
-<span class="Error"></span><br>
+*<?php echo $WebsiteError; ?><br>
 Comment:<br>
 <textarea Name="Comment" rows="5" cols="25"></textarea>
 <br>
