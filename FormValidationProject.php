@@ -3,6 +3,9 @@ $NameError=""; //on load nameerror will be empty
 $EmailError="";
 $GenderError="";
 $WebsiteError="";
+// /^[A-Za-z. ]*$/
+// /[a-zA-z0-9._]{3,}@[a-zA-z0-9._]{3,}[.]{1}[a-zA-z0-9._]{2,}/
+// /(https:|ftp:)\/\/+[a-zA-Z0-9.\-_\/?\$=&\#\~`!]+\.[a-zA-Z0-9.\-_\/?\$=&\#\~`!]*/
 
 //When submitted check if name is there if not set name error to show "name is required"
 if(isset($_POST["Submit"])){
@@ -10,11 +13,17 @@ if(isset($_POST["Submit"])){
         $NameError="Name is Required";
     } else{
         $Name=Test_User_Input($_POST["Name"]);
+        if(!preg_match("/^[A-Za-z. ]*$/", $Name)){
+            $NameError="Only Letters and white spaces are allowed";
+        }
     } 
     if(empty($_POST["Email"])){
         $EmailError="Email is Required";
     } else{
         $Email=Test_User_Input($_POST["Email"]);
+        if(!preg_match("/[a-zA-z0-9._]{3,}@[a-zA-z0-9._]{3,}[.]{1}[a-zA-z0-9._]{2,}/", $Email)){
+            $EmailError="Invalid email Format";
+        }
     } 
     if(empty($_POST["Gender"])){
         $GenderError="Gender is Required";
@@ -25,6 +34,9 @@ if(isset($_POST["Submit"])){
         $WebsiteError="Website is Required";
     } else{
         $Website=Test_User_Input($_POST["Website"]);
+        if(!preg_match("/(https:|ftp:)\/\/+[a-zA-Z0-9.\-_\/?\$=&\#\~`!]+\.[a-zA-Z0-9.\-_\/?\$=&\#\~`!]*/", $Website)){
+            $WebsiteError="Invalid Website Address";
+        }
     } 
 }
 function Test_User_Input($Data){
