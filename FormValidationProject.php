@@ -10,32 +10,32 @@ $WebsiteError="";
 //When submitted check if name is there if not set name error to show "name is required"
 if(isset($_POST["Submit"])){
     if(empty($_POST["Name"])){
-        $NameError="Name is Required";
+        $NameError="<span class='Error'>Name is Required</span>";
     } else{
         $Name=Test_User_Input($_POST["Name"]);
         if(!preg_match("/^[A-Za-z. ]*$/", $Name)){
-            $NameError="Only Letters and white spaces are allowed";
+            $NameError="<span class='Error'>Only Letters and white spaces are allowed</span>";
         }
     } 
     if(empty($_POST["Email"])){
-        $EmailError="Email is Required";
+        $EmailError="<span class='Error'>Email is Required</span>";
     } else{
         $Email=Test_User_Input($_POST["Email"]);
         if(!preg_match("/[a-zA-Z0-9._-]{3,}@[a-zA-Z0-9._-]{3,}[.]{1}[a-zA-Z0-9._-]{2,}/", $Email)){
-            $EmailError="Invalid email Format";
+            $EmailError="<span class='Error'>Invalid email Format</span>";
         }
     } 
     if(empty($_POST["Gender"])){
-        $GenderError="Gender is Required";
+        $GenderError="<span class='Error'>Gender is Required</span>";
     } else{
         $Gender=Test_User_Input($_POST["Gender"]);
     } 
     if(empty($_POST["Website"])){
-        $WebsiteError="Website is Required";
+        $WebsiteError="<span class='Error'>Website is Required</span>";
     } else{
         $Website=Test_User_Input($_POST["Website"]);
         if(!preg_match("/(https:|ftp:)\/\/+[a-zA-Z0-9.\-_\/?\$=&\#\~`!]+\.[a-zA-Z0-9.\-_\/?\$=&\#\~`!]*/",$Website)){
-            $WebsiteError="Invalid Website Address";
+            $WebsiteError="<span class='Error'>Invalid Website Address</span>";
         }
     }
         if(!empty($_POST["Name"])&&!empty($_POST["Email"])&&!empty($_POST["Gender"])&&!empty($_POST["Website"])){
@@ -47,7 +47,7 @@ if(isset($_POST["Submit"])){
                 echo "Website: {$_POST["Website"]}<br>";
                 echo "Comment: {$_POST["Comment"]}<br>";
             } else{
-                echo "Please Complete and correct your form again";
+                echo "<span class='Error'>Please Complete and correct your form again</span>";
             }
         
         }
@@ -74,7 +74,7 @@ input[type="text"],input[type="email"],textarea{
     font-size: 1.0em;
 }
 .Error{
-    color: red;
+    color: blue;
 }
 </style>
     <body>
@@ -86,17 +86,17 @@ input[type="text"],input[type="email"],textarea{
 <fieldset>
 Name:<br>
 <input class="input" type="text" Name="Name" value="">
-*<?php echo $NameError;  ?><br>   
+*<span class="Error"></span><?php echo $NameError;  ?><br>   
 E-mail:<br>
 <input class="input" type="text" Name="Email" value="">
-*<?php echo $EmailError; ?><br>
+*<span class="Error"></span><?php echo $EmailError; ?><br>
 Gender:<br>
 <input class="radio" type="radio" Name="Gender" value="Female">Female
 <input class="radio" type="radio" Name="Gender" value="Male">Male
-*<?php echo $GenderError; ?><br>        
+*<span class="Error"></span><?php echo $GenderError; ?><br>        
 Website:<br>
 <input class="input" type="text" Name="Website" value="">
-*<?php echo $WebsiteError; ?><br>
+*<span class="Error"></span><?php echo $WebsiteError; ?><br>
 Comment:<br>
 <textarea Name="Comment" rows="5" cols="25"></textarea>
 <br>
